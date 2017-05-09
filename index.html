@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>認証ページ</title>
+  <script>
+   function auth() {
+    var input = prompt("パスワードを入力して下さい:","");
+
+    if (input == "" || input == null) {
+      auth();
+      return;
+    }
+
+    var url = "./" + input + ".html";
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4) {
+        if (req.status == 200) {
+          location.href = url;
+        }else{
+          auth();
+          return;
+        }
+      }
+    }
+    req.open('GET', url, true);
+    req.send(null);
+   }
+
+   window.onload = function() {
+     auth();
+   }
+  </script>
+</head>
+<body>
+</body>
+</html>
